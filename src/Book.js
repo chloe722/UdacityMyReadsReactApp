@@ -4,13 +4,10 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 class Book extends React.Component {
-    state = {
-    
-    }
 
     static propTypes = {
         title: PropTypes.string.isRequired,
-        authors: PropTypes.array.isRequired,
+        authors: PropTypes.array, // Removed .isRequired since some books dont have 'authors' props
         cover: PropTypes.string.isRequired,
         shelf: PropTypes.string,
         updateShelf: PropTypes.func.isRequired
@@ -37,7 +34,6 @@ class Book extends React.Component {
         <div className="book-authors">{this.props.authors}</div>
       </div>
       </li>
-
       )
     }
 }
