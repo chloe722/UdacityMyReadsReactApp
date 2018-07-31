@@ -8,7 +8,7 @@ class Book extends React.Component {
     static propTypes = {
         title: PropTypes.string.isRequired,
         authors: PropTypes.array, // Removed .isRequired since some books dont have 'authors' props
-        cover: PropTypes.string.isRequired,
+        cover: PropTypes.string,
         shelf: PropTypes.string,
         updateShelf: PropTypes.func.isRequired
     }

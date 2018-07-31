@@ -26,7 +26,7 @@ class SearchPage extends React.Component{
             key={book.id}
             title={book.title}
             authors={book.authors}
-            cover={book.imageLinks.thumbnail}
+            cover={book.imageLinks? book.imageLinks.thumbnail : "" }
             shelf={book.shelf}
             updateShelf={shelfName => this.updateShelf(book.id, shelfName)}
           />
