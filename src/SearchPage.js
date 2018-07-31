@@ -9,11 +9,10 @@ import './App.css'
 
 
 class SearchPage extends React.Component{
-
     state = {
         query: '',
         searchBooks: [],
-        books: []
+        bookIdShelf: {}
     }
 
     updateQuery(query){
@@ -27,7 +26,7 @@ class SearchPage extends React.Component{
             title={book.title}
             authors={book.authors}
             cover={book.imageLinks? book.imageLinks.thumbnail : "" }
-            shelf={book.shelf}
+            shelf={this.state.bookIdShelf[book.id]}
             updateShelf={shelfName => this.updateShelf(book.id, shelfName)}
           />
         )
@@ -37,9 +36,11 @@ class SearchPage extends React.Component{
         this.updateQuery(term)
         if(term){
           BooksAPI.search(term).then(result => {
-            this.setState({
-              searchBooks: result && result.length > 0 ? result : []
-            })
+            if(term == this.state.query) { // response can arrive late, and query term might have changed
+                this.setState({
+                searchBooks: result && result.length > 0 ? result : []
+                })
+            }
           })
         } else {
           this.setState({searchBooks: []})
@@ -48,21 +49,22 @@ class SearchPage extends React.Component{
 
       updateShelf(bookId, shelf) {
         BooksAPI.update({id: bookId}, shelf)
-        this.setState(state => {
-          return {
-            books: state.books.map(book => {
-              if(bookId === book.id) {
-                return {... book, shelf: shelf}
-              } else {
-                return book
-              }
-            })
-          }
+        this.setState({
+            bookIdShelf: {... this.state.bookIdShelf, [bookId]: shelf}
         })
       }
 
-    render(){
+      componentDidMount() {
+          BooksAPI.getAll().then(books => {
+              let bookIdShelf = {}
+              for(let book of books) {
+                  bookIdShelf[book.id] = book.shelf
+              }
+              this.setState({bookIdShelf})
+          })
+      }
 
+    render(){
         return(
             <div className="search-books">
             <div className="search-books-bar">
