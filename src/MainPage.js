@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import Book from './Book'
 import SearchPage from './SearchPage'
 import './App.css'
+import BookShelf from './BookShelf'
 
 class MainPage extends React.Component{
 
@@ -64,30 +65,15 @@ class MainPage extends React.Component{
             </div>
             <div className="list-books-content">
               <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {this.getShelfBooks("currentlyReading")}
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {this.getShelfBooks("wantToRead")}
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {this.getShelfBooks("read")}
-                    </ol>
-                  </div>
-                </div>
+                <BookShelf label="Currently Reading">
+                    {this.getShelfBooks("currentlyReading")}
+                </BookShelf>
+                <BookShelf label="Want to Read">
+                    {this.getShelfBooks("wantToRead")}
+                </BookShelf>
+                <BookShelf label="Read">
+                    {this.getShelfBooks("read")}
+                </BookShelf>
               </div>
             </div>
             <div className="open-search">
