@@ -1,14 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
-import escapeRegExp from 'escape-string-regexp'
-import PropTypes from 'prop-types'
 import Book from './Book'
 import './App.css'
 
 
-class SearchPage extends React.Component{
+class SearchPage extends React.Component {
     state = {
         query: '',
         searchBooks: [],
@@ -32,7 +29,7 @@ class SearchPage extends React.Component{
         this.setState( {query} ) //We dont wanna update existing query, instead, create new one
         if(query){
           BooksAPI.search(query.trim()).then(result => {
-            if(query == this.state.query) { // response can arrive late, and query term might have changed
+            if(query === this.state.query) { // response can arrive late, and query term might have changed
                 this.setState({
                   searchBooks: result && result.length > 0 ? result : []
                 })
@@ -46,7 +43,7 @@ class SearchPage extends React.Component{
       updateShelf(bookId, shelf) {
         BooksAPI.update({id: bookId}, shelf)
         this.setState({
-            bookIdShelf: {... this.state.bookIdShelf, [bookId]: shelf}
+            bookIdShelf: {...this.state.bookIdShelf, [bookId]: shelf}
         })
       }
 
