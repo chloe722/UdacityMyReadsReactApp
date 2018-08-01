@@ -13,13 +13,16 @@ class Book extends React.Component {
         updateShelf: PropTypes.func.isRequired
     }
 
-    render(){
+    coverImage() {
+      return this.props.cover || 'https://via.placeholder.com/128x193?text=No%20Cover'
+    }
 
+    render(){
       return (
         <li>
         <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.cover})` }}></div>
+          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.coverImage()})` }}></div>
           <div className="book-shelf-changer">
             <select value={this.props.shelf || 'none'} onChange={e => this.props.updateShelf(e.target.value)}>
               <option value="" disabled>Move to...</option>
