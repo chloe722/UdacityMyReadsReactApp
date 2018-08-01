@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
-class Book extends React.Component {
+class Book extends React.PureComponent {
 
     static propTypes = {
         title: PropTypes.string.isRequired,
