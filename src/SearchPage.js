@@ -15,10 +15,6 @@ class SearchPage extends React.Component{
         bookIdShelf: {}
     }
 
-    updateQuery(query){
-        this.setState( {query: query.trim()} ) //We dont wanna update existing query, instead, create new one
-      }
-    
       getSearchBooks(showingBooks){
         return showingBooks.map(book =>
           <Book
@@ -32,13 +28,13 @@ class SearchPage extends React.Component{
         )
       }
     
-      search(term){
-        this.updateQuery(term)
-        if(term){
-          BooksAPI.search(term).then(result => {
-            if(term == this.state.query) { // response can arrive late, and query term might have changed
+      search(query){
+        this.setState( {query} ) //We dont wanna update existing query, instead, create new one
+        if(query){
+          BooksAPI.search(query.trim()).then(result => {
+            if(query == this.state.query) { // response can arrive late, and query term might have changed
                 this.setState({
-                searchBooks: result && result.length > 0 ? result : []
+                  searchBooks: result && result.length > 0 ? result : []
                 })
             }
           })
